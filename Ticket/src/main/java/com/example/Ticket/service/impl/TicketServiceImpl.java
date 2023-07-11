@@ -1,8 +1,8 @@
 package com.example.Ticket.service.impl;
 
 import com.example.Ticket.dto.TicketDto;
-import com.example.Ticket.entity.Ticket;
-import com.example.Ticket.repository.TicketPerository;
+import com.example.Ticket.model.Ticket;
+import com.example.Ticket.repository.TicketRepository;
 import com.example.Ticket.service.TicketService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class TicketServiceImpl implements TicketService {
 
-    private final TicketPerository ticketPerository;
+    private final TicketRepository ticketRepository;
 
     @Override
     public TicketDto save (TicketDto ticketDto){
@@ -21,8 +21,7 @@ public class TicketServiceImpl implements TicketService {
         ticket.setMail(ticketDto.getMail());
         ticket.setPrice(ticketDto.getPrice());
         ticket.setTicketNumber(ticketDto.getTicketNumber());
-        ticketPerository.save(ticket);
-
+        ticketRepository.save(ticket);
 
         return ticketDto;
     }

@@ -10,17 +10,18 @@ import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
 @Component
-@NoArgsConstructor
-@AllArgsConstructor
+
 public class TicketConsumer {
     private TicketService ticketService ;
 
+    public TicketConsumer(TicketService ticketService) {
+        this.ticketService = ticketService;
+    }
 
-    @RabbitListener(queues = "queue-name")
+    @RabbitListener(queues = "${ticket.rabbitmq.queue}")
     public void receiveMessage(Message message){
+
         String messageBody = new String(message.getBody());
-        //byte[] body = message.getBody();
-        //TicketDto ticketDto = getBodyTicketDto(messageBody);
         TicketDto ticketDto = createTicketDtoFromMessageBody(messageBody);
         ticketService.save(ticketDto);
     }
@@ -30,6 +31,7 @@ public class TicketConsumer {
         JSONObject jsonObject = new JSONObject(messageBody);
 
         TicketDto ticketDto = new TicketDto();
+        ticketDto.setId(jsonObject.getInt("id"));
         ticketDto.setName(jsonObject.getString("name"));
         ticketDto.setLastName(jsonObject.getString("lastName"));
         ticketDto.setMail(jsonObject.getString("mail"));
