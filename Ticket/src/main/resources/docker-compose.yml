@@ -9,12 +9,3 @@ services:
       MYSQL_DATABASE: ticket
     volumes:
       - ./mysql-data:/var/lib/mysql
-
-  spboot-rabbitmq-ticket:
-    image: rabbitmq:3-management
-    ports:
-      - '5673:5672'
-      - '15673:15672'
-    environment:
-      - RABBITMQ_DEFAULT_USER=root
-      - RABBITMQ_DEFAULT_PASS=password
