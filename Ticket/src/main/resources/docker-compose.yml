@@ -9,3 +9,9 @@ services:
       MYSQL_DATABASE: ticket
     volumes:
       - ./mysql-data:/var/lib/mysql
+
+
+  redis:
+    image: redis
+    ports:
+      - 6379:6379

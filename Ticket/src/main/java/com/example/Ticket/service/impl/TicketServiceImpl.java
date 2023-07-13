@@ -34,9 +34,15 @@ public class TicketServiceImpl implements TicketService {
         return ticketDto;
     }
 
+//    @Override
+//    public List<TicketCache> getAllTicketCache() {
+//        return new ArrayList<TicketCache>((Collection<? extends TicketCache>) ticketCacheRepository.findAll());
+//    }
     @Override
     public List<TicketCache> getAllTicketCache() {
-        return new ArrayList<TicketCache>((Collection<? extends TicketCache>) ticketCacheRepository.findAll());
+        List<TicketCache> ticketCacheList = new ArrayList<>();
+        ticketCacheRepository.findAll().forEach(ticketCacheList::add);
+        return ticketCacheList;
     }
 
     @Override
